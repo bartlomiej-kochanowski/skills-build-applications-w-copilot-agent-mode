@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-(k)y1z$hbzfa#0s=y=%q=(l=f603r3o4(nhn^(i#2u=#hr-%1^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+# Dynamiczne ustawienie ALLOWED_HOSTS na podstawie zmiennej środowiskowej CODESPACE_NAME
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+codespace_host = f"{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else None
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if codespace_host:
+    ALLOWED_HOSTS.append(codespace_host)
 
 
 # Application definition
